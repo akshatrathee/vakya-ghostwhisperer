@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SessionMetadata",
+  "description": "Metadata written to data/sessions/{timestamp}_{mode}.json after each pipeline run. No audio stored.",
+  "type": "object",
+  "required": ["session_id", "started_at", "completed_at", "mode", "stt_engine", "llm_engine"],
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "UUID v4"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["dictation", "notes", "farm_log", "meeting"]
+    },
+    "language_detected": {
+      "type": "string",
+      "description": "ISO 639-1 code returned by STT"
+    },
+    "audio_duration_sec": {
+      "type": "number",
+      "description": "Length of recorded audio (not stored — derived from segment timestamps)"
+    },
+    "speaker_count": {
+      "type": "integer",
+      "description": "Number of unique speakers detected by diarizer. 1 if diarization disabled.",
+      "default": 1
+    },
+    "speaker_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of speaker_ids present in this session"
+    },
+    "stt_engine": {
+      "type": "string",
+      "description": "Engine used. e.g. 'faster_whisper_large_v3_turbo'"
+    },
+    "llm_engine": {
+      "type": "string",
+      "description": "e.g. 'phi3_mini_q4' or 'rule_based'"
+    },
+    "llm_chunk_count": {
+      "type": "integer",
+      "description": "Number of chunks the transcript was split into for LLM processing. 1 = no chunking needed.",
+      "default": 1
+    },
+    "peak_ram_mb": {
+      "type": "number",
+      "description": "Peak RAM usage during pipeline in MB"
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "vad_sec": { "type": "number" },
+        "stt_sec": { "type": "number" },
+        "diarization_sec": { "type": "number" },
+        "llm_sec": { "type": "number" },
+        "tts_sec": { "type": "number", "description": "TTS synthesis time if triggered this session. Omit if TTS not used." },
+        "total_sec": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "transcript_path": {
+      "type": "string",
+      "description": "Relative path to the .md file containing the cleaned transcript. e.g. 'sessions/2026-04-27T14-32-00_farm_log.md'"
+    },
+    "vocab_terms_extracted": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "New terms added to vocab_store from this session"
+    },
+    "voice_profiles_updated": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "speaker_ids whose profiles were created or improved in this session"
+    },
+    "wiki_ingest_status": {
+      "type": "string",
+      "enum": ["skipped_phase3", "pending", "complete"],
+      "default": "skipped_phase3",
+      "description": "Phase 3 feature. Always 'skipped_phase3' in Phase 2 build."
+    }
+  },
+  "additionalProperties": false
+}

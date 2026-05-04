@@ -1,0 +1,53 @@
+# XcodeGen project spec — generate Xcode project with:
+#   brew install xcodegen
+#   cd vakya/platform/ios && xcodegen generate
+#
+# This avoids committing the binary project.pbxproj.
+
+name: Vakya
+options:
+  bundleIdPrefix: com.vakya
+  deploymentTarget:
+    iOS: "16.0"       # AVAudioEngine installTap API stable since iOS 13; 16 for SwiftUI stability
+  xcodeVersion: "15.4"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    PRODUCT_BUNDLE_IDENTIFIER: com.vakya.app
+    MARKETING_VERSION: "0.7.0"
+    CURRENT_PROJECT_VERSION: "7"
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1"         # iPhone only (Phase 1)
+    ENABLE_BITCODE: NO                  # required for BeeWare + whisper.cpp dylib
+    OTHER_LDFLAGS: "-lwhisper"          # link bundled libwhisper.dylib
+
+targets:
+  Vakya:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/Vakya
+        type: group
+    resources:
+      - path: Resources
+    info:
+      path: Resources/Info.plist
+    entitlements:
+      path: Resources/Vakya.entitlements
+    settings:
+      base:
+        INFOPLIST_FILE: Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Resources/Vakya.entitlements
+        FRAMEWORK_SEARCH_PATHS:
+          - "$(PROJECT_DIR)/Frameworks"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "@executable_path/Frameworks"
+    dependencies:
+      # BeeWare rubicon-objc is included as a pre-built xcframework from Briefcase
+      - framework: Frameworks/Python.xcframework
+        embed: true
+      - framework: Frameworks/rubicon_objc.xcframework
+        embed: true
+      - framework: Frameworks/libwhisper.xcframework
+        embed: true

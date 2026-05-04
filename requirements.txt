@@ -1,0 +1,24 @@
+# ── Core (always required) ───────────────────────────────────────────────────
+psutil>=5.9
+pyyaml>=6.0
+numpy>=1.24
+soundfile>=0.12
+
+# ── Sprint 1 minimum set (Windows, whisper.cpp + Phi-3 Mini) ─────────────────
+pywhispercpp>=1.0          # whisper.cpp Python bindings
+llama-cpp-python>=0.2      # Phi-3 Mini via llama.cpp
+pyperclip>=1.8             # Clipboard output
+
+# ── Sprint 2: faster-whisper + WhisperX (Windows primary) ───────────────────
+# faster-whisper>=1.0
+# whisperx>=3.1
+# torchaudio>=2.0
+
+# ── Sprint 3: TTS ────────────────────────────────────────────────────────────
+# onnxruntime>=1.17        # Kokoro ONNX
+# kokoro-onnx>=0.3
+# piper-tts>=1.2
+
+# ── Development ──────────────────────────────────────────────────────────────
+# pytest>=8.0
+# pytest-cov>=4.0

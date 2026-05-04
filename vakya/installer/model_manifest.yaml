@@ -1,0 +1,117 @@
+# Model download manifest
+# SOURCE OF TRUTH for model URLs, checksums, and RAM requirements.
+# Written once and read by download_models.py at first run.
+# The models/manifest.json file tracks which models are actually present.
+# Do not hardcode URLs in application code — read from here.
+
+models:
+  # ── STT ────────────────────────────────────────────────────────────────────
+
+  - id: whisper_base_en
+    name: "whisper.cpp base.en"
+    tier: bundled              # Ships in installer — no download required
+    destination: models/stt/whisper-base-en.bin
+    url: https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.en.bin
+    sha256: 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe
+    size_mb: 142
+    ram_mb: 300
+    license: MIT
+    platform: [windows, linux, macos, android, ios]
+
+  - id: faster_whisper_turbo
+    name: "faster-whisper large-v3 turbo int8"
+    tier: recommended
+    destination: models/stt/faster-whisper-large-v3-turbo
+    url: https://huggingface.co/Systran/faster-whisper-large-v3-turbo/resolve/main/
+    sha256: null               # Directory model — verify via manifest.json after download
+    size_mb: 1500
+    ram_mb: 3072
+    license: MIT
+    platform: [windows, linux, macos]
+    files:
+      - model.bin
+      - config.json
+      - tokenizer.json
+      - vocabulary.txt
+      - preprocessor_config.json
+
+  - id: moonshine_v2_base
+    name: "Moonshine v2 Base"
+    tier: recommended_mobile
+    destination: models/stt/moonshine-v2-base
+    url: https://huggingface.co/UsefulSensors/moonshine/resolve/main/base/
+    sha256: null
+    size_mb: 58
+    ram_mb: 200
+    license: Apache-2.0
+    platform: [android, ios]
+
+  - id: qwen3_asr_0.6b
+    name: "Qwen3-ASR-0.6B"
+    tier: optional_hindi
+    destination: models/stt/qwen3-asr-0.6b
+    url: https://huggingface.co/Qwen/Qwen3-ASR-0.6B/resolve/main/
+    sha256: null
+    size_mb: 600
+    ram_mb: 1536
+    license: Apache-2.0
+    platform: [windows, linux, macos, android]
+
+  # ── LLM ────────────────────────────────────────────────────────────────────
+
+  - id: phi3_mini_q4
+    name: "Phi-3 Mini 4K Instruct Q4_K_M"
+    tier: recommended
+    destination: models/llm/phi-3-mini-4k-instruct-q4_k_m.gguf
+    url: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf/resolve/main/Phi-3-mini-4k-instruct-q4.gguf
+    sha256: null
+    size_mb: 2300
+    ram_mb: 2355
+    license: MIT
+    platform: [windows, linux, macos]
+
+  # ── TTS ────────────────────────────────────────────────────────────────────
+
+  - id: kokoro_v1
+    name: "Kokoro v1.0 ONNX"
+    tier: minimum
+    destination: models/tts/kokoro-v1.0.onnx
+    url: https://huggingface.co/hexgrad/Kokoro-82M/resolve/main/kokoro-v1_0.onnx
+    sha256: null
+    size_mb: 300
+    ram_mb: 200
+    license: Apache-2.0
+    platform: [windows, linux, macos, android, ios]
+
+  - id: cosyvoice2
+    name: "CosyVoice2 0.5B"
+    tier: recommended
+    destination: models/tts/cosyvoice2
+    url: https://huggingface.co/FunAudioLLM/CosyVoice2-0.5B/resolve/main/
+    sha256: null
+    size_mb: 1024
+    ram_mb: 1536
+    license: Apache-2.0
+    platform: [windows, linux, macos]
+
+  - id: piper_en_lessac
+    name: "Piper en_US-lessac-medium"
+    tier: rpi
+    destination: models/tts/piper/en_US-lessac-medium.onnx
+    url: https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium/en_US-lessac-medium.onnx
+    sha256: null
+    size_mb: 63
+    ram_mb: 100
+    license: MIT
+    platform: [windows, linux, macos, android, ios]
+
+  - id: piper_en_lessac_config
+    name: "Piper en_US-lessac-medium config"
+    tier: rpi
+    destination: models/tts/piper/en_US-lessac-medium.onnx.json
+    url: https://huggingface.co/rhasspy/piper-voices/resolve/v1.0.0/en/en_US/lessac/medium/en_US-lessac-medium.onnx.json
+    sha256: null
+    size_mb: 1
+    ram_mb: 0
+    license: MIT
+    platform: [windows, linux, macos, android, ios]

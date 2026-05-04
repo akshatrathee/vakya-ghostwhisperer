@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VocabStore",
+  "description": "Personal vocabulary store. Injected as STT prompt prefix to improve transcription of domain-specific terms.",
+  "type": "object",
+  "required": ["version", "updated_at", "terms"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "description": "Schema version. Increment on breaking changes.",
+      "default": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "terms": {
+      "type": "array",
+      "description": "List of vocabulary entries",
+      "items": {
+        "type": "object",
+        "required": ["term", "added_at", "source"],
+        "properties": {
+          "term": {
+            "type": "string",
+            "description": "The exact term or phrase to remember. e.g. 'Kharif season', 'Priya Sharma', 'drip irrigation'"
+          },
+          "phonetic_hint": {
+            "type": "string",
+            "description": "Optional pronunciation hint for STT. e.g. 'kha-reef'",
+            "default": null
+          },
+          "added_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["user_manual", "auto_extracted", "correction"],
+            "description": "How this term was added: user typed it, auto-extracted from transcript, or user corrected a mistranscription"
+          },
+          "frequency": {
+            "type": "integer",
+            "description": "Number of times term has appeared across sessions",
+            "default": 1
+          }
+        }
+      }
+    },
+    "prompt_prefix_cache": {
+      "type": "string",
+      "description": "Pre-built comma-separated string of top-N terms for injection into Whisper --initial_prompt. Regenerated on vocab update.",
+      "default": ""
+    }
+  }
+}

@@ -1,0 +1,25 @@
+hardware_tier: auto          # auto | minimum | recommended | rpi
+
+stt:
+  engine: faster_whisper     # faster_whisper | moonshine | whisper_cpp | qwen3_asr
+  model_size: large-v3-turbo
+  language: auto             # auto | hi | en | ...
+  int8: true
+
+llm:
+  engine: phi3_mini
+  model: phi-3-mini-4k-instruct-q4_k_m.gguf
+  context_tokens: 4096
+  chunk_overlap_tokens: 200
+
+tts:
+  engine: cosyvoice2         # cosyvoice2 | kokoro | piper
+
+diarizer:
+  engine: whisperx           # whisperx | pyannote
+  enabled: true
+
+output:
+  default_mode: dictation    # dictation | notes | farm_log | meeting
+  copy_to_clipboard: true
+  write_session_log: true

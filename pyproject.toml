@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "vakya"
+version = "0.1.0"
+description = "Offline speech-to-text — fully on-device, no internet, no subscriptions"
+readme = "vakya/CLAUDE.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+keywords = ["speech-to-text", "offline", "whisper", "dictation"]
+
+dependencies = [
+    "psutil>=5.9",
+    "pyyaml>=6.0",
+    "numpy>=1.24",
+    "soundfile>=0.12",
+    "pyperclip>=1.8",
+]
+
+[project.optional-dependencies]
+stt-whisper-cpp = ["pywhispercpp>=1.0"]
+stt-faster-whisper = ["faster-whisper>=1.0", "torchaudio>=2.0"]
+llm = ["llama-cpp-python>=0.2"]
+tts-kokoro = ["onnxruntime>=1.17", "kokoro-onnx>=0.3"]
+tts-piper = ["piper-tts>=1.2"]
+diarizer-whisperx = ["whisperx>=3.1"]
+diarizer-pyannote = ["pyannote.audio>=3.1"]
+output = ["pyperclip>=1.8"]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.0",
+]
+
+[project.scripts]
+vakya = "vakya.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["vakya*"]
+
+[tool.pytest.ini_options]
+testpaths = ["vakya/tests"]
+log_cli = true
+log_cli_level = "DEBUG"

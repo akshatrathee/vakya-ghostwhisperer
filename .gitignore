@@ -1,0 +1,74 @@
+# ── Models (large binaries — downloaded at first run, never committed) ────────
+vakya/models/**
+!vakya/models/.gitkeep
+
+# ── User data ─────────────────────────────────────────────────────────────────
+vakya/data/voice_profiles/
+vakya/data/sessions/
+vakya/data/vocab_store.json
+
+# ── Secrets ───────────────────────────────────────────────────────────────────
+vakya/config/hf_token.txt
+*.token
+*.secret
+
+# ── Temp audio (allow test fixtures) ─────────────────────────────────────────
+*.wav
+*.mp3
+*.flac
+!vakya/tests/fixtures/*.wav
+
+# ── PyInstaller ───────────────────────────────────────────────────────────────
+vakya/installer/dist/
+vakya/installer/build/
+
+# ── Android build outputs ─────────────────────────────────────────────────────
+vakya/platform/android/.gradle/
+vakya/platform/android/app/build/
+vakya/platform/android/build/
+vakya/platform/android/local.properties
+*.apk
+*.aab
+
+# ── iOS build outputs ─────────────────────────────────────────────────────────
+vakya/platform/ios/Vakya.xcodeproj/
+vakya/platform/ios/DerivedData/
+vakya/platform/ios/build/
+vakya/platform/ios/Frameworks/Python.xcframework
+vakya/platform/ios/Frameworks/rubicon_objc.xcframework
+vakya/platform/ios/Frameworks/libwhisper.xcframework
+*.ipa
+*.xcarchive
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+.env
+*.whl
+
+# ── pytest / coverage ─────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# ── IDE / OS ──────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
